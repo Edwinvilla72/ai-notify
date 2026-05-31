@@ -2,9 +2,18 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
 import { exec } from 'child_process';
+import { output } from 'framer-motion/client';
 
 
 export function activate(context: vscode.ExtensionContext) {
+
+    // Create a VS Code Output Channel (to view log stream for this extension)
+    const outputChannel = vscode.window.createOutputChannel("AI-Notify");
+    // the idea with this part is that appending the line displays logs to this output channel
+    outputChannel.appendLine("[AI-NOTIFY] - THIS IS A TEST");
+    outputChannel.show;
+
+
 
     function getConfig() {
         return vscode.workspace.getConfiguration('ai-notify');
@@ -16,6 +25,7 @@ export function activate(context: vscode.ExtensionContext) {
         return path.join(context.extensionPath, 'assets', 'notification.mp3');
     }
 
+    // plays the sound on the user's device
     function playSound() {
         // check if sound exists at the defined path
         const soundPath = getSoundPath();
@@ -23,14 +33,14 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.window.showErrorMessage("Could not find sound effect in filepath: ", soundPath);
         }
 
-        console.log("Playing sound!\n");
+        outputChannel.appendLine("[AI-NOTIFY] - Playing sound\n");
         // set command and execute depending on hardware
         let command: string;
 
         switch (process.platform) {
             // windows
             case 'win32':
-                console.log("entered windows command!\n");
+                outputChannel.appendLine("[AI-NOTIFY] - entered windows command!\n");
                 command = `powershell -c "Add-Type -AssemblyName presentationCore; $mp = New-Object System.Windows.Media.MediaPlayer; $mp.Open('${soundPath}'); $mp.Play(); Start-Sleep -s 3"`;
                 break;
             // apple/linux
@@ -45,9 +55,14 @@ export function activate(context: vscode.ExtensionContext) {
 
         // execute the command
         exec(command, (error) => {
-            if (error) { console.error("ERROR: Could not play sound - ", error.message); };
+            if (error) { outputChannel.appendLine(`[AI-NOTIFY] - ERROR: Could not play sound - ${error.message}`); };
         });
 
+    }
+
+    // monitor codex logs
+    function watchCodexLogs() {
+        // 
     }
 
     const disposable = vscode.commands.registerCommand('ai-notify', () => {

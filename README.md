@@ -1,3 +1,57 @@
+# AI-Notify
+Vibe-coding with a tool like Codex as an extension in VS Code can be very quick and effective, but in my experience, time has been wasted due to checking other tabs and completing other tasks while not being aware that my current task has been completed. I need a simple way to know when it is time to come back to VS Code to check the output produced by these tools.
+
+AI-Notify is my solution (in-progress) to this issue.
+
+This is a simple VS Code extension that plays a sound when Codex finishes its output. 
+
+
+That's it... I'll have more to say about it when it's done :D
+
+For now, here's a basic placeholder README that came with the project template! I'll follow it to give you something more professional to read.
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
 # ai-notify README
 
 This is the README for your extension "ai-notify". After writing up a brief description, we recommend including the following sections.
